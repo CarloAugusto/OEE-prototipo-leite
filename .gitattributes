@@ -1,2 +1,9 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Force arquivos .R a serem detectados como linguagem R
+*.R linguist-language=R
+
+# Se estiver usando R Markdown (.Rmd) e quiser que contribua como R, remova o status "prose"
+*.Rmd linguist-detectable=true
+
