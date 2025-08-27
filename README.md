@@ -1,79 +1,99 @@
-# OEE (Overall Equipment Effectiveness)
-OEE, ou Eficácia Geral do Equipamento, é um indicador chave de desempenho (KPI) usado para medir a eficiência de um processo de manufatura. É um "raio-x" da saúde e do desempenho de uma linha de produção. Combina três fatores importantes em uma única métrica, mostrando o percentual do tempo de produção que é verdadeiramente produtivo.
+# OEE (Overall Equipment Effectiveness) — Protótipo no Setor Lácteo
 
-O OEE é calculado multiplicando três componentes:
-OEE = Disponibilidade x Performance x Qualidade
+Este repositório apresenta um **protótipo de dashboard de OEE** (Eficácia Geral do Equipamento), aplicado a uma **linha fictícia de envase de leite UHT**.  
+O objetivo é **demonstrar habilidades em análise de dados, simulação de indicadores industriais e visualização em Power BI**.
 
+---
 
-Disponibilidade: Mede as perdas de tempo por paradas não planejadas.
+## Objetivo do Projeto
 
-    O que ela responde? "Quanto tempo a minha máquina realmente operou em comparação com o tempo que ela deveria ter operado?"
-    Cálculo: (Tempo em Produção) / (Tempo Total Planejado)
-    Exemplos de perdas: Quebras de equipamento, falta de matéria-prima, tempo de setup e ajustes.
+- Simular dados de produção de uma linha de envase de leite UHT.  
+- Calcular os indicadores de **Disponibilidade, Performance e Qualidade**.  
+- Desenvolver um **dashboard interativo no Power BI** para análise e tomada de decisão.  
+- Demonstrar aplicação prática de **KPIs industriais** e boas práticas de visualização.  
 
+---
 
-Performance (ou Desempenho): Mede as perdas de velocidade.
+## O que é OEE?
 
-    O que ela responde? "A minha máquina produziu na velocidade máxima que ela foi projetada para produzir?"
-    Cálculo: (Produção Real) / (Produção Teórica no Tempo em Produção)
-    Exemplos de perdas: Pequenas paradas não registradas, operação em velocidade reduzida, equipamento desgastado.
+OEE é um **KPI (Key Performance Indicator) de excelência operacional** que combina três dimensões em uma única métrica:
 
+- **Disponibilidade (%)** → mede perdas por paradas não planejadas  
+- **Performance (%)** → mede perdas por redução de velocidade  
+- **Qualidade (%)** → mede perdas por produtos defeituosos  
 
-Qualidade: Mede as perdas por produtos defeituosos.
+O cálculo é: 
 
-    O que ela responde? "Quantos dos produtos que eu fabriquei estão bons e sem defeitos, prontos para o cliente?"
-    Cálculo: (Produtos Bons) / (Produção Real Total)
-    Exemplos de perdas: Produtos que precisam de retrabalho, produtos descartados (sucata).
+$OEE = Disponibilidade \times Performance \times Qualidade$
+Um OEE de **100%** significa que a linha produz **apenas produtos bons**, **o mais rápido possível**, **sem perdas de tempo**.
 
-O resultado final é um percentual. Uma pontuação de 100% no OEE significa que você está produzindo apenas peças boas, o mais rápido possível, sem tempo de parada. 
+---
 
-Passo 1: Entender e Gerar os Dados
-Cenário: Uma linha de envase de leite UHT (longa vida) em uma fábrica.
+## Metodologia
 
-Crie uma Planilha (Excel/Google Sheets): Esta será sua base de dados (seu "CSV/SQL" do projeto). Crie colunas que representem os dados coletados em um turno de 8 horas (480 minutos).
+### 1. Simulação de dados (Excel/Google Sheets)
+Cenário: uma linha de produção de leite UHT (480 minutos por turno).  
+Variáveis simuladas incluem:
+- Tempo planejado, paradas não planejadas  
+- Velocidade teórica da máquina  
+- Produção total vs. defeituosa  
+- Turno, produto e data  
 
-    Data: Data da produção.
-    Turno: Manhã, Tarde, Noite.
-    Produto: Leite Integral, Leite Desnatado.
-    Tempo_Planejado_Producao_min: 480 minutos.
-    Tempo_Paradas_Nao_Planejadas_min: Simule valores aqui. Ex: 30 min (quebra), 15 min (falta de embalagem).
-    Velocidade_Teorica_Caixas_por_min: A velocidade ideal da máquina. Ex: 100 caixas/min.
-    Total_Produzido_Caixas: O número total de caixas que saíram da máquina. Ex: 39.000.
-    Total_Caixas_Defeituosas: Caixas com defeito (vazamento, peso incorreto). Ex: 400.
+---
 
-Dica: Crie dados para vários dias para que seu dashboard tenha mais informações para analisar
+### 2. Cálculo dos KPIs
+Indicadores calculados diretamente na planilha:
+- `Disponibilidade_% = (Tempo_Real / Tempo_Planejado) * 100`
+- `Performance_% = (Produção Real / Produção Teórica) * 100`
+- `Qualidade_% = (Caixas Boas / Caixas Produzidas) * 100`
+- `OEE_% = Disponibilidade × Performance × Qualidade`
 
-Passo 2: Calcular os Indicadores na Própria Planilha
+### 🔹 Disponibilidade
+- **Mede**: perdas de tempo por paradas não planejadas.  
+- **Pergunta-chave**: *"Quanto tempo a máquina realmente operou em comparação com o tempo que deveria ter operado?"*  
+- **Cálculo**: `(Tempo em Produção) / (Tempo Total Planejado)`  
+- **Exemplos de perdas**: quebras de equipamento, falta de matéria-prima, tempo de setup e ajustes.  
 
+### 🔹 Performance (ou Desempenho)
+- **Mede**: perdas de velocidade.  
+- **Pergunta-chave**: *"A máquina produziu na velocidade máxima projetada?"*  
+- **Cálculo**: `(Produção Real) / (Produção Teórica no Tempo em Produção)`  
+- **Exemplos de perdas**: pequenas paradas não registradas, operação em velocidade reduzida, equipamento desgastado.  
 
-    Tempo_Real_Producao_min: Tempo_Planejado_Producao_min - Tempo_Paradas_Nao_Planejadas_min
-    Disponibilidade_%: (Tempo_Real_Producao_min / Tempo_Planejado_Producao_min) * 100
-    Producao_Teorica_Possivel: Tempo_Real_Producao_min * Velocidade_Teorica_Caixas_por_min
-    Performance_%: (Total_Produzido_Caixas / Producao_Teorica_Possivel) * 100
-    Total_Caixas_Boas: Total_Produzido_Caixas - Total_Caixas_Defeituosas
-    Qualidade_%: (Total_Caixas_Boas / Total_Produzido_Caixas) * 100
-    OEE_%: (Disponibilidade_% / 100) * (Performance_% / 100) * (Qualidade_% / 100) * 100
+### 🔹 Qualidade
+- **Mede**: perdas por produtos defeituosos.  
+- **Pergunta-chave**: *"Quantos produtos fabricados estão bons e prontos para o cliente?"*  
+- **Cálculo**: `(Produtos Bons) / (Produção Real Total)`  
+- **Exemplos de perdas**: retrabalho, sucata, produtos descartados.  
 
-Passo 3: Construir o Dashboard no Power BI
-Esta é a parte visual, onde você demonstra sua habilidade com a ferramenta.
+---
 
-    Importe os Dados: Conecte o Power BI à sua planilha de dados.
-    Crie os Visuais:
-        Cards de Destaque: Coloque os KPIs principais (OEE, Disponibilidade, Performance, Qualidade) em destaque, com a média do período.
-        Gráfico de OEE ao Longo do Tempo: Um gráfico de linha mostrando a evolução do OEE dia a dia.
-        Gráfico de Pareto para Paradas: Crie um gráfico de barras para mostrar os maiores motivos de parada (ex: "Quebra de Equipamento", "Falta de Material", "Setup"). Isso mostra que você sabe identificar e priorizar problemas.
-        Gráfico de Pizza para Qualidade: Mostrando a proporção de "Produtos Bons" vs. "Produtos com Defeito".
-        Filtros: Adicione filtros (Slicers) para que o usuário possa selecionar a Data, o Turno ou o Produto e ver os dados específicos.
+### 3. Construção do Dashboard (Power BI)
+- **Cards de KPIs**: OEE, Disponibilidade, Performance, Qualidade  
+- **Gráfico de linha**: evolução do OEE ao longo do tempo  
+- **Filtros (slicers)**: seleção por turno, produto e data  
 
-Passo 4: Publicar e Documentar no GitHub
+---
 
-    Repositório no GitHub (oee-prototipo-leite):
-        README.md: Este é o seu cartão de visitas. Explique o projeto de forma clara.
-            Objetivo: "Desenvolver um protótipo de dashboard de OEE para simular a eficiência de uma linha de produção de leite, demonstrando habilidades em análise de dados, Power BI e compreensão de KPIs industriais."
-            Ferramentas: "Excel (para simulação de dados), Power BI (para visualização) e GitHub (para documentação)."
-            Metodologia: Explique brevemente o que é OEE e como você calculou os três indicadores.
-            Como Usar: Coloque o link público do seu dashboard do Power BI aqui.
-        Pasta dados: Suba a sua planilha Excel com os dados simulados.
-        Pasta imagens: Tire prints do seu dashboard finalizado e coloque aqui, exibindo-os no README.md.
-    Publicar o Power BI: Use a função "Publicar na Web" do Power BI para gerar um link público e incorporável do seu dashboard. Atenção: Use apenas dados fictícios, pois este link será público.
+### 4. Publicação
+- Protótipo documentado no GitHub  
+
+---
+
+## Estrutura do Repositório
+
+```OEE-prototipo-leite/
+├── data/
+│   ├── README.md
+│   ├── oee_prototipo_leite.csv
+│   └── oee_prototipo_leite.db
+│
+├── docs/
+│   ├── README.md
+│   └── script_simulation.R
+│
+├── LICENSE
+├── README.md   # principal
+├── dashboard_oee.pbix
+└── .gitattributes
 
