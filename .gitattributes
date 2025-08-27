@@ -1,6 +1,6 @@
-# Force arquivos .R a serem detectados como linguagem R
+*.R linguist-detectable=true
 *.R linguist-language=R
 
-# Se estiver usando R Markdown (.Rmd) e quiser que contribua como R, remova o status "prose"
+*.Rmd linguist-language=R
 *.Rmd linguist-detectable=true
 
