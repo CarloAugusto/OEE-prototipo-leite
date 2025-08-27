@@ -1,6 +1,3 @@
-# Auto detect text files and perform LF normalization
-* text=auto
-
 # Force arquivos .R a serem detectados como linguagem R
 *.R linguist-language=R
 
