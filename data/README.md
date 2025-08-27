@@ -47,3 +47,10 @@ library(readr)
 dados <- read_csv("data/dados_leite.csv")
 str(dados)
 summary(dados$OEE)
+
+```
+
+> **Nota**  
+> Estes dados são **totalmente simulados**, com propósito exclusivo de **modelagem e demonstração**.  
+> Não refletem dados reais de produção de leite e devem ser interpretados apenas em **contexto educativo ou de prototipagem**.
+
